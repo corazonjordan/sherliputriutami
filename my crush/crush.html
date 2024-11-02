@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confess Crush</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #ff6b6b;
+        font-family: Arial, sans-serif;
+        margin: 0;
+      }
+      .container {
+        text-align: center;
+        color: #333;
+      }
+      h1 {
+        font-size: 2em;
+        margin-bottom: 10px;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 1em;
+        margin: 5px;
+        cursor: pointer;
+        border: none;
+        color: white;
+        border-radius: 5px;
+      }
+      #likeBtn {
+        background-color: #3498db;
+      }
+      #dislikeBtn {
+        background-color: #3498db;
+        position: absolute;
+      }
+      img {
+        width: 150px;
+        margin: 20px 0;
+      }
+      #playButton {
+        background-color: #2ecc71;
+        margin-top: 20px;
+      }
+      /* Sembunyikan audio player bawaan */
+      #bgMusic {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img
+        src="https://i.pinimg.com/originals/c9/4a/24/c94a247ab4dea477611d5b175329c688.gif"
+        alt="Cute Emoji"
+      />
+      <h1>
+        Saya suka awak.<br />
+        Awak suka saya tak?
+      </h1>
+      <button id="likeBtn" onclick="confess()">Suka</button>
+      <button id="dislikeBtn" onmouseover="moveButton()">Tak Suka</button>
+
+      <!-- Tombol untuk memulai musik -->
+      <button id="playButton" onclick="playMusic()">♫ Play Musik</button>
+    </div>
+
+    <audio id="bgMusic" loop>
+      <source src="Sempurna.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <script>
+      const audio = document.getElementById("bgMusic");
+      let isPlaying = false;
+
+      // Fungsi untuk memainkan/menghentikan musik
+      function playMusic() {
+        const playButton = document.getElementById("playButton");
+        if (!isPlaying) {
+          audio
+            .play()
+            .then(() => {
+              isPlaying = true;
+              playButton.textContent = "♫ Pause Musik";
+            })
+            .catch((error) => {
+              console.error("Error playing audio:", error);
+              alert("Maaf, ada masalah dalam memainkan musik");
+            });
+        } else {
+          audio.pause();
+          isPlaying = false;
+          playButton.textContent = "♫ Play Musik";
+        }
+      }
+
+      // Mencoba memainkan musik saat halaman dimuat
+      window.onload = function () {
+        // Mencoba autoplay dengan muted terlebih dahulu
+        audio.muted = true;
+        audio
+          .play()
+          .then(() => {
+            audio.muted = false; // Unmute jika berhasil
+          })
+          .catch(() => {
+            console.log(
+              "Autoplay tidak diizinkan, memerlukan interaksi pengguna"
+            );
+          });
+      };
+
+      function confess() {
+        alert("Alhamdulillah, Sherli Nerima Ya Allah 😭!!!!!!!");
+        // Memainkan musik saat tombol Suka diklik
+        if (!isPlaying) {
+          playMusic();
+        }
+      }
+
+      function moveButton() {
+        const button = document.getElementById("dislikeBtn");
+        const randomX = Math.floor(Math.random() * (window.innerWidth - 100));
+        const randomY = Math.floor(Math.random() * (window.innerHeight - 40));
+        button.style.left = randomX + "px";
+        button.style.top = randomY + "px";
+      }
+    </script>
+  </body>
+</html>
